@@ -42,4 +42,31 @@ public class MergeSort {
 			}
 		}
 	}
+
+	public static Number[] sortNumber1(Number[] in) {
+		mergeSort(in, 0, in.length - 1);
+		return in;
+	}
+
+	private static void mergeSort(Number[] in, int i, int j) {
+		if (j - i > 1) {
+			mergeSort(in, i, i + (j - i) / 2);
+			mergeSort(in, i + 1 + (j - i) / 2, j);
+		}
+		Number[] tem = new Number[in.length];
+		for (int s = i; s <= j; s++) {
+			tem[s] = in[s];
+		}
+		for (int m = i, n = i + 1 + (j - i) / 2, s = i; s <= j; s++) {
+			if (m > i + (j - i) / 2) {
+				in[s] = tem[n++];
+			} else if (n > j) {
+				in[s] = tem[m++];
+			} else if (Comparator.compareNumber(tem[m], tem[n]).equals(ComResult.less)) {
+				in[s] = tem[m++];
+			} else {
+				in[s] = tem[n++];
+			}
+		}
+	}
 }
